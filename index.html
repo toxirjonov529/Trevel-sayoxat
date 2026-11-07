@@ -1,0 +1,480 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRAVEL UZ — Sayohat olami</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue:#123e62;
+  --gold:#e9ad52;
+  --dark:#102b40;
+  --light:#f5f8fa;
+  --muted:#718096;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;color:var(--dark);background:#fff}
+a{text-decoration:none;color:inherit}
+button{font:inherit;cursor:pointer}
+.container{width:min(1160px,92%);margin:auto}
+header{height:82px;display:flex;align-items:center;background:#fff;position:sticky;top:0;z-index:50;box-shadow:0 3px 20px #102b4010}
+.nav{display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:25px;font-weight:800;color:var(--blue);letter-spacing:-1px}
+.logo span{color:var(--gold)}
+.links{display:flex;align-items:center;gap:30px}
+.links a{font-size:14px;font-weight:600;color:#42576a;transition:.2s}
+.links a:hover{color:var(--gold)}
+.nav-btn,.primary{background:var(--gold);color:#182d3e;border:0;border-radius:7px;padding:13px 22px;font-weight:700;transition:.25s}
+.nav-btn:hover,.primary:hover{background:#f3bd6c;transform:translateY(-2px)}
+.menu{display:none;background:none;border:0;font-size:27px;color:var(--blue)}
+.hero{min-height:650px;background:linear-gradient(90deg,#071d30d9,#071d3060 55%,#071d3010),url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=90') center/cover;display:flex;align-items:center;color:white}
+.hero-content{max-width:700px;padding:90px 0}
+.eyebrow{color:var(--gold);font-size:13px;font-weight:800;letter-spacing:3px;text-transform:uppercase}
+.hero h1{font:800 clamp(42px,6vw,72px)/1.1 'Playfair Display',serif;margin:20px 0}
+.hero p{font-size:17px;line-height:1.8;color:#e5edf3;max-width:570px}
+.hero-actions{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+.outline{padding:13px 22px;border:1px solid #ffffff9c;border-radius:7px;color:white;font-weight:700}
+.outline:hover{background:#ffffff20}
+.search-wrap{margin-top:-48px;position:relative;z-index:5}
+.search-box{background:#fff;padding:23px;border-radius:12px;box-shadow:0 12px 40px #102b4018;display:grid;grid-template-columns:repeat(3,1fr) auto;gap:18px;align-items:end}
+.field label{display:block;font-size:12px;font-weight:700;color:#6b7b89;margin-bottom:9px}
+.field select{width:100%;padding:13px;border:1px solid #e1e8ee;border-radius:6px;background:#fff;color:#34495e;outline:none}
+.search-box button{height:46px}
+section{padding:90px 0}
+.section-head{text-align:center;margin-bottom:42px}
+.section-head .eyebrow{color:#c58b35}
+.section-head h2{font:700 clamp(30px,4vw,43px) 'Playfair Display',serif;margin:12px 0}
+.section-head p{color:var(--muted);font-size:15px}
+.destinations{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.destination{height:330px;border-radius:12px;overflow:hidden;position:relative;color:white;cursor:pointer}
+.destination img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.destination:hover img{transform:scale(1.08)}
+.destination:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#061a2bd9,transparent 70%)}
+.destination-info{position:absolute;z-index:1;bottom:22px;left:22px}
+.destination-info h3{font:700 26px 'Playfair Display',serif}
+.destination-info p{font-size:13px;margin-top:6px;color:#e5edf3}
+.packages{background:var(--light)}
+.filters{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:32px}
+.filter{padding:10px 18px;border:1px solid #dce4ea;background:white;border-radius:30px;color:#526577;font-weight:600}
+.filter.active,.filter:hover{background:var(--blue);color:white;border-color:var(--blue)}
+.package-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:23px}
+.package{background:white;border-radius:12px;overflow:hidden;box-shadow:0 5px 25px #102b400b;transition:.3s}
+.package:hover{transform:translateY(-6px);box-shadow:0 15px 35px #102b4018}
+.package img{width:100%;height:220px;object-fit:cover}
+.package-body{padding:21px}
+.tag{display:inline-block;color:#a86e19;background:#fff2dc;padding:6px 10px;border-radius:5px;font-size:11px;font-weight:800}
+.package h3{font-size:20px;margin:13px 0 8px}
+.package p{font-size:13px;color:var(--muted);line-height:1.6}
+.package-bottom{border-top:1px solid #edf0f2;margin-top:18px;padding-top:15px;display:flex;justify-content:space-between;align-items:center}
+.price{font-size:20px;font-weight:800;color:var(--blue)}
+.price small{font-size:11px;color:var(--muted);font-weight:500}
+.details{border:0;background:var(--blue);color:white;padding:10px 15px;border-radius:5px;font-size:12px;font-weight:700}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-img{height:460px;border-radius:12px;overflow:hidden}
+.about-img img{width:100%;height:100%;object-fit:cover}
+.about-text h2{font:700 40px 'Playfair Display',serif;margin:15px 0}
+.about-text p{color:var(--muted);line-height:1.9;font-size:15px}
+.stats{display:flex;gap:35px;margin-top:30px}
+.stat strong{display:block;color:var(--blue);font-size:27px}
+.stat span{font-size:12px;color:var(--muted)}
+.gallery{background:var(--light)}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:190px;gap:13px}
+.gallery-grid img{width:100%;height:100%;object-fit:cover;border-radius:9px;transition:.3s}
+.gallery-grid img:hover{transform:scale(1.025)}
+.gallery-grid img:first-child{grid-column:span 2;grid-row:span 2}
+.gallery-grid img:last-child{grid-column:span 2}
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.review{padding:27px;background:white;border:1px solid #edf0f2;border-radius:10px}
+.stars{color:#e8a53f;letter-spacing:3px}
+.review p{font-size:14px;line-height:1.8;color:#68798a;margin:16px 0}
+.review strong{font-size:14px}
+.cta{background:linear-gradient(100deg,#123e62ed,#123e62c7),url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=85') center/cover;padding:70px 20px;text-align:center;color:white}
+.cta h2{font:700 38px 'Playfair Display',serif;margin-bottom:13px}
+.cta p{color:#d9e4ed;margin-bottom:24px}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px}
+.contact-info h2{font:700 38px 'Playfair Display',serif;margin:12px 0}
+.contact-info p{color:var(--muted);line-height:1.8}
+.contact-line{margin-top:22px;font-weight:600}
+.contact-form{display:grid;gap:13px}
+.contact-form input,.contact-form textarea{width:100%;padding:14px;border:1px solid #dce4ea;border-radius:6px;font:inherit;outline:none}
+.contact-form textarea{height:120px;resize:vertical}
+.contact-form input:focus,.contact-form textarea:focus{border-color:var(--gold)}
+footer{background:#0d293e;color:white;padding:55px 0 22px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px}
+footer p{color:#b5c5d2;font-size:13px;line-height:1.8;margin-top:13px}
+footer h3{margin-bottom:16px}
+footer a{display:block;color:#b5c5d2;font-size:13px;margin:10px 0}
+footer a:hover{color:var(--gold)}
+.copyright{border-top:1px solid #ffffff20;margin-top:35px;padding-top:20px;text-align:center;color:#9db0be;font-size:12px}
+.modal{display:none;position:fixed;inset:0;background:#061727bd;z-index:100;align-items:center;justify-content:center;padding:20px}
+.modal.show{display:flex}
+.modal-box{background:white;border-radius:12px;padding:30px;max-width:460px;width:100%;position:relative}
+.close{position:absolute;right:18px;top:15px;border:0;background:none;font-size:25px}
+.modal-box h2{font:700 28px 'Playfair Display',serif;margin:10px 0}
+.modal-box p{color:var(--muted);line-height:1.7;margin-bottom:18px}
+.modal-box input{width:100%;padding:13px;margin:7px 0;border:1px solid #dce4ea;border-radius:6px}
+.modal-box .primary{width:100%;margin-top:10px}
+@media(max-width:850px){
+ .links{display:none;position:absolute;top:82px;left:0;width:100%;background:white;padding:25px;flex-direction:column;align-items:flex-start;box-shadow:0 10px 20px #0001}
+ .links.open{display:flex}.menu{display:block}.nav-btn{display:none}
+ .search-box{grid-template-columns:1fr 1fr}
+ .destinations,.package-grid,.reviews{grid-template-columns:repeat(2,1fr)}
+ .about-grid,.contact-grid{grid-template-columns:1fr}
+ .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+ section{padding:65px 0}.hero{min-height:570px}
+ .hero-content{padding:65px 0}
+ .search-box{grid-template-columns:1fr}
+ .destinations,.package-grid,.reviews{grid-template-columns:1fr}
+ .destination{height:290px}
+ .about-img{height:320px}.stats{gap:18px}
+ .gallery-grid{grid-template-columns:1fr 1fr;grid-auto-rows:130px}
+ .gallery-grid img:first-child{grid-column:span 2;grid-row:span 1}
+ .gallery-grid img:last-child{grid-column:span 2}
+ .footer-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="container nav">
+  <a href="#" class="logo">TRAVEL<span>UZ.</span></a>
+  <nav class="links" id="navLinks">
+   <a href="#home">Bosh sahifa</a>
+   <a href="#destinations">Yo‘nalishlar</a>
+   <a href="#packages">Turlar</a>
+   <a href="#about">Biz haqimizda</a>
+   <a href="#contact">Aloqa</a>
+  </nav>
+  <a class="nav-btn" href="#contact">Sayohatni rejalash</a>
+  <button class="menu" id="menuBtn" aria-label="Menyu">☰</button>
+ </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+ <div class="container">
+  <div class="hero-content">
+   <div class="eyebrow">Dunyoni biz bilan kashf eting</div>
+   <h1>Unutilmas sayohat sari birinchi qadam</h1>
+   <p>Orzuyingizdagi manzilni tanlang. Biz sizga qulay, maroqli va esda qolarli sayohatni tashkil etishga yordam beramiz.</p>
+   <div class="hero-actions">
+    <a class="primary" href="#packages">Turlarni ko‘rish</a>
+    <a class="outline" href="#about">Biz haqimizda</a>
+   </div>
+  </div>
+ </div>
+</section>
+
+<div class="container search-wrap">
+ <div class="search-box">
+  <div class="field">
+   <label>QAYERGA BORMOQCHISIZ?</label>
+   <select id="destinationSelect">
+    <option value="all">Barcha yo‘nalishlar</option>
+    <option value="turkey">Turkiya</option>
+    <option value="dubai">Dubay</option>
+    <option value="swiss">Shveysariya</option>
+    <option value="uzbek">O‘zbekiston</option>
+   </select>
+  </div>
+  <div class="field">
+   <label>SAYOHAT TURI</label>
+   <select id="typeSelect">
+    <option value="all">Barcha turlar</option>
+    <option value="beach">Dengiz va dam olish</option>
+    <option value="mountain">Tog‘ va tabiat</option>
+    <option value="culture">Tarix va madaniyat</option>
+   </select>
+  </div>
+  <div class="field">
+   <label>SAYOHATCHILAR</label>
+   <select id="peopleSelect">
+    <option>1 kishi</option><option selected>2 kishi</option>
+    <option>3 kishi</option><option>4 kishi</option>
+    <option>5+ kishi</option>
+   </select>
+  </div>
+  <button class="primary" id="searchBtn">Qidirish</button>
+ </div>
+</div>
+
+<section id="destinations">
+ <div class="container">
+  <div class="section-head">
+   <div class="eyebrow">Mashhur manzillar</div>
+   <h2>Qayerga sayohat qilamiz?</h2>
+   <p>Dunyoning eng go‘zal joylari sizni kutmoqda.</p>
+  </div>
+  <div class="destinations">
+   <article class="destination">
+    <img src="https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=900&q=85" alt="Istanbul">
+    <div class="destination-info"><h3>Turkiya</h3><p>Istanbul · Antalya · Kapadokiya</p></div>
+   </article>
+   <article class="destination">
+    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=900&q=85" alt="Dubay">
+    <div class="destination-info"><h3>Dubay</h3><p>Hashamat va zamonaviylik</p></div>
+   </article>
+   <article class="destination">
+    <img src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=900&q=85" alt="Shveysariya">
+    <div class="destination-info"><h3>Shveysariya</h3><p>Alp tog‘lari va tabiat</p></div>
+   </article>
+   <article class="destination">
+    <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=900&q=85" alt="Maldiv orollari">
+    <div class="destination-info"><h3>Maldiv orollari</h3><p>Moviy dengiz va sokinlik</p></div>
+   </article>
+   <article class="destination">
+    <img src="https://images.unsplash.com/photo-1525874684015-58379d421a52?auto=format&fit=crop&w=900&q=85" alt="Samarqand">
+    <div class="destination-info"><h3>Samarqand</h3><p>Tarix va me’morchilik</p></div>
+   </article>
+   <article class="destination">
+    <img src="https://images.unsplash.com/photo-1555990793-da11153b2473?auto=format&fit=crop&w=900&q=85" alt="Buxoro">
+    <div class="destination-info"><h3>Buxoro</h3><p>Sharqona qadriyatlar</p></div>
+   </article>
+  </div>
+ </div>
+</section>
+
+<section class="packages" id="packages">
+ <div class="container">
+  <div class="section-head">
+   <div class="eyebrow">Siz uchun tanladik</div>
+   <h2>Ommabop sayohat paketlari</h2>
+   <p>O‘zingizga mos sayohatni tanlang.</p>
+  </div>
+  <div class="filters">
+   <button class="filter active" data-filter="all">Barchasi</button>
+   <button class="filter" data-filter="beach">Dengiz</button>
+   <button class="filter" data-filter="mountain">Tabiat</button>
+   <button class="filter" data-filter="culture">Tarix</button>
+  </div>
+  <div class="package-grid" id="packageGrid">
+   <article class="package" data-type="beach" data-destination="turkey">
+    <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=900&q=85" alt="Antalya">
+    <div class="package-body"><span class="tag">DAM OLISH</span><h3>Antalya — Turkiya</h3><p>5 kunlik sayohat · Mehmonxona · Nonushta</p>
+     <div class="package-bottom"><div class="price">$450 <small>/ kishi</small></div><button class="details" data-name="Antalya — Turkiya" data-price="$450" data-desc="5 kunlik dam olish, mehmonxona va nonushta paketi.">Batafsil</button></div>
+    </div>
+   </article>
+   <article class="package" data-type="culture" data-destination="dubai">
+    <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=900&q=85" alt="Dubay">
+    <div class="package-body"><span class="tag">SHAHAR SAYOHATI</span><h3>Dubay — BAA</h3><p>4 kunlik sayohat · Shahar bo‘ylab ekskursiya</p>
+     <div class="package-bottom"><div class="price">$520 <small>/ kishi</small></div><button class="details" data-name="Dubay — BAA" data-price="$520" data-desc="4 kunlik shahar sayohati va ekskursiya paketi.">Batafsil</button></div>
+    </div>
+   </article>
+   <article class="package" data-type="mountain" data-destination="swiss">
+    <img src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=900&q=85" alt="Shveysariya">
+    <div class="package-body"><span class="tag">TABIIY GO‘ZALLIK</span><h3>Alp tog‘lari — Shveysariya</h3><p>6 kunlik sayohat · Tog‘ manzaralari</p>
+     <div class="package-bottom"><div class="price">$890 <small>/ kishi</small></div><button class="details" data-name="Shveysariya" data-price="$890" data-desc="6 kunlik tog‘ va tabiat sayohati.">Batafsil</button></div>
+    </div>
+   </article>
+   <article class="package" data-type="beach" data-destination="maldives">
+    <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=900&q=85" alt="Maldiv">
+    <div class="package-body"><span class="tag">OROL DAM OLISHI</span><h3>Maldiv orollari</h3><p>5 kunlik sayohat · Dengiz bo‘yida dam olish</p>
+     <div class="package-bottom"><div class="price">$1100 <small>/ kishi</small></div><button class="details" data-name="Maldiv orollari" data-price="$1100" data-desc="5 kunlik orol dam olishi paketi.">Batafsil</button></div>
+    </div>
+   </article>
+   <article class="package" data-type="culture" data-destination="uzbek">
+    <img src="https://images.unsplash.com/photo-1525874684015-58379d421a52?auto=format&fit=crop&w=900&q=85" alt="Samarqand">
+    <div class="package-body"><span class="tag">TARIXIY SAYOHAT</span><h3>Samarqand — O‘zbekiston</h3><p>2 kunlik sayohat · Tarixiy obidalar</p>
+     <div class="package-bottom"><div class="price">$90 <small>/ kishi</small></div><button class="details" data-name="Samarqand" data-price="$90" data-desc="2 kunlik tarixiy joylar bo‘ylab sayohat.">Batafsil</button></div>
+    </div>
+   </article>
+   <article class="package" data-type="culture" data-destination="uzbek">
+    <img src="https://images.unsplash.com/photo-1555990793-da11153b2473?auto=format&fit=crop&w=900&q=85" alt="Buxoro">
+    <div class="package-body"><span class="tag">MADANIY SAYOHAT</span><h3>Buxoro — O‘zbekiston</h3><p>2 kunlik sayohat · Eski shahar</p>
+     <div class="package-bottom"><div class="price">$85 <small>/ kishi</small></div><button class="details" data-name="Buxoro" data-price="$85" data-desc="2 kunlik Buxoro tarixiy markaziga sayohat.">Batafsil</button></div>
+    </div>
+   </article>
+  </div>
+  <p id="noResults" style="display:none;text-align:center;margin-top:25px;color:#718096">Bu tanlov bo‘yicha turlar topilmadi.</p>
+ </div>
+</section>
+
+<section id="about">
+ <div class="container about-grid">
+  <div class="about-img"><img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1000&q=90" alt="Sayohat"></div>
+  <div class="about-text">
+   <div class="eyebrow">Biz haqimizda</div>
+   <h2>Har bir sayohat — yangi bir hikoya</h2>
+   <p>TRAVEL UZ — sayohat qilishni orzu qilganlar uchun yaratilgan namuna turizm platformasi. Bizning maqsadimiz sayohat yo‘nalishlari, tur paketlari va foydali ma’lumotlarni bir joyda taqdim etishdir.</p>
+   <p style="margin-top:14px">Sizga mos yo‘nalishni tanlang va yangi taassurotlar sari yo‘l oling!</p>
+   <div class="stats">
+    <div class="stat"><strong>20+</strong><span>Yo‘nalish</span></div>
+    <div class="stat"><strong>10+</strong><span>Tur paketi</span></div>
+    <div class="stat"><strong>24/7</strong><span>Onlayn ma’lumot</span></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="gallery">
+ <div class="container">
+  <div class="section-head"><div class="eyebrow">Sayohat lahzalari</div><h2>Go‘zal dunyo manzaralari</h2><p>Har bir surat ortida yangi taassurot bor.</p></div>
+  <div class="gallery-grid">
+   <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1000&q=85" alt="Ko‘l manzarasi">
+   <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=700&q=85" alt="Tabiat">
+   <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=85" alt="Tog‘lar">
+   <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=700&q=85" alt="Parij">
+   <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=700&q=85" alt="Ko‘l va tog‘">
+  </div>
+ </div>
+</section>
+
+<section>
+ <div class="container">
+  <div class="section-head"><div class="eyebrow">Sayohatchilar fikri</div><h2>Biz haqimizda nima deyishadi?</h2></div>
+  <div class="reviews">
+   <article class="review"><div class="stars">★★★★★</div><p>Sayohatni rejalash uchun juda qulay ko‘rinish. Yo‘nalishlar va ma’lumotlar bir joyda jamlangan.</p><strong>Azizbek M.</strong></article>
+   <article class="review"><div class="stars">★★★★★</div><p>Sayt dizayni sodda va tushunarli. Sayohat paketlarini ko‘rish oson.</p><strong>Madina R.</strong></article>
+   <article class="review"><div class="stars">★★★★★</div><p>Turli manzillarni ko‘rib, o‘zimga yoqqan joylarni tanlashim mumkin.</p><strong>Javohir T.</strong></article>
+  </div>
+  <p style="text-align:center;color:#8a98a5;font-size:11px;margin-top:15px">Izoh: ushbu fikrlar namuna matnlardir.</p>
+ </div>
+</section>
+
+<div class="cta">
+ <h2>Yangi sarguzashtga tayyormisiz?</h2>
+ <p>Orzuingizdagi sayohatni bugunoq rejalashtirishni boshlang.</p>
+ <a href="#contact" class="primary">Biz bilan bog‘laning</a>
+</div>
+
+<section id="contact">
+ <div class="container contact-grid">
+  <div class="contact-info">
+   <div class="eyebrow">Biz bilan aloqa</div>
+   <h2>Sayohatingizni birga rejalashtiramiz</h2>
+   <p>Savollaringiz bo‘lsa yoki tur paketlari haqida ma’lumot olmoqchi bo‘lsangiz, quyidagi shaklni to‘ldiring.</p>
+   <div class="contact-line">✉️ info@traveluz.uz</div>
+   <div class="contact-line">📞 +998 90 000 00 00</div>
+   <div class="contact-line">📍 Toshkent, O‘zbekiston</div>
+   <p style="font-size:12px;margin-top:15px">Aloqa ma’lumotlari namuna uchun kiritilgan.</p>
+  </div>
+  <form class="contact-form" id="contactForm">
+   <input type="text" placeholder="Ismingiz" required>
+   <input type="tel" placeholder="Telefon raqamingiz" required>
+   <input type="text" placeholder="Qaysi davlatga bormoqchisiz?">
+   <textarea placeholder="Xabaringiz..." required></textarea>
+   <button class="primary" type="submit">Xabar yuborish</button>
+  </form>
+ </div>
+</section>
+</main>
+
+<footer>
+ <div class="container">
+  <div class="footer-grid">
+   <div><a href="#" class="logo" style="color:white">TRAVEL<span>UZ.</span></a><p>Dunyoni kashf eting, yangi taassurotlar oling va unutilmas sayohatlar yarating.</p></div>
+   <div><h3>Tezkor havolalar</h3><a href="#home">Bosh sahifa</a><a href="#destinations">Yo‘nalishlar</a><a href="#packages">Tur paketlari</a><a href="#about">Biz haqimizda</a></div>
+   <div><h3>Ish vaqti</h3><p>Dushanba – Juma: 09:00–18:00</p><p>Shanba: 10:00–16:00</p><p>Yakshanba: Dam olish kuni</p></div>
+  </div>
+  <div class="copyright">© 2026 TRAVEL UZ. Barcha huquqlar himoyalangan.</div>
+ </div>
+</footer>
+
+<div class="modal" id="tourModal">
+ <div class="modal-box">
+  <button class="close" id="closeModal">×</button>
+  <div class="eyebrow">Tur haqida ma’lumot</div>
+  <h2 id="modalTitle">Sayohat</h2>
+  <p id="modalDesc"></p>
+  <strong id="modalPrice" style="color:#123e62;font-size:22px"></strong>
+  <p style="margin-top:14px;font-size:12px">Narxlar namuna uchun kiritilgan. Haqiqiy buyurtma va bron qilish xizmati ulanmagan.</p>
+  <button class="primary" id="modalContact">Bog‘lanish</button>
+ </div>
+</div>
+
+<script>
+const menuBtn = document.getElementById('menuBtn');
+const navLinks = document.getElementById('navLinks');
+
+menuBtn.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
+
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+
+const filterButtons = document.querySelectorAll('.filter');
+const packages = document.querySelectorAll('.package');
+const destinationSelect = document.getElementById('destinationSelect');
+const typeSelect = document.getElementById('typeSelect');
+const noResults = document.getElementById('noResults');
+
+let activeFilter = 'all';
+
+function filterPackages() {
+  const destination = destinationSelect.value;
+  const type = typeSelect.value;
+  let visible = 0;
+
+  packages.forEach(card => {
+    const matchesType = activeFilter === 'all' || card.dataset.type === activeFilter;
+    const matchesSearchType = type === 'all' || card.dataset.type === type;
+    const matchesDestination = destination === 'all' || card.dataset.destination === destination;
+    const show = matchesType && matchesSearchType && matchesDestination;
+
+    card.style.display = show ? 'block' : 'none';
+    if (show) visible++;
+  });
+
+  noResults.style.display = visible ? 'none' : 'block';
+}
+
+filterButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    filterButtons.forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
+    activeFilter = button.dataset.filter;
+    filterPackages();
+  });
+});
+
+document.getElementById('searchBtn').addEventListener('click', () => {
+  activeFilter = 'all';
+  filterButtons.forEach(btn => btn.classList.remove('active'));
+  document.querySelector('[data-filter="all"]').classList.add('active');
+  filterPackages();
+  document.getElementById('packages').scrollIntoView({behavior:'smooth'});
+});
+
+const modal = document.getElementById('tourModal');
+const modalTitle = document.getElementById('modalTitle');
+const modalDesc = document.getElementById('modalDesc');
+const modalPrice = document.getElementById('modalPrice');
+
+document.querySelectorAll('.details').forEach(button => {
+  button.addEventListener('click', () => {
+    modalTitle.textContent = button.dataset.name;
+    modalDesc.textContent = button.dataset.desc;
+    modalPrice.textContent = button.dataset.price + ' / kishi';
+    modal.classList.add('show');
+  });
+});
+
+function closeModal() {
+  modal.classList.remove('show');
+}
+document.getElementById('closeModal').addEventListener('click', closeModal);
+modal.addEventListener('click', event => {
+  if (event.target === modal) closeModal();
+});
+document.getElementById('modalContact').addEventListener('click', () => {
+  closeModal();
+  document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+});
+
+document.getElementById('contactForm').addEventListener('submit', event => {
+  event.preventDefault();
+  alert('Rahmat! Xabaringiz demo shaklida qabul qilindi. Haqiqiy yuborish uchun server ulash kerak.');
+  event.target.reset();
+});
+</script>
+</body>
+</html>
